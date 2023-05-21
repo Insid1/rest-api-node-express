@@ -1,6 +1,5 @@
 import "reflect-metadata";
-import { Response } from "express";
-import { Router } from "express";
+import { Response, Router } from "express";
 import { IRoute } from "./route.interface";
 import { ILogger } from "../logger/logger.interface";
 import { injectable } from "inversify";
@@ -17,20 +16,20 @@ export abstract class BaseController {
 		return this._router;
 	}
 
-	public created(res: Response) {
+	public created(res: Response): ReturnType<typeof res.sendStatus> {
 		return res.sendStatus(201);
 	}
 
-	public send<T>(res: Response, code: number, message: T) {
+	public send<T>(res: Response, code: number, message: T): ReturnType<typeof res.json> {
 		res.status(code);
 		return res.json(message);
 	}
 
-	public ok<T>(res: Response, message: T) {
+	public ok<T>(res: Response, message: T): ReturnType<typeof res.json> {
 		return res.status(200).json(message);
 	}
 
-	protected bindRoutes(routes: IRoute[]) {
+	protected bindRoutes(routes: IRoute[]): void {
 		for (const route of routes) {
 			this.logger.log(`[${route.method}] ${route.path}`);
 			const handler = route.func.bind(this); // to keep context

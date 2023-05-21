@@ -23,15 +23,15 @@ export class App {
 		this.port = port;
 	}
 
-	useRoutes() {
+	useRoutes(): void {
 		this.app.use("/user", this.userController.getRouter());
 	}
 
-	useExceptionFilters() {
+	useExceptionFilters(): void {
 		this.app.use(this.exceptionFilter.catch.bind(this));
 	}
 
-	public async init() {
+	public init(): void {
 		this.useRoutes();
 		this.useExceptionFilters();
 		this.server = this.app.listen(this.port);
