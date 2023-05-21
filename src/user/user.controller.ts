@@ -5,9 +5,10 @@ import {inject, injectable} from "inversify";
 import {ILogger} from "../logger/logger.interface";
 import "reflect-metadata"
 import {TYPES} from "../types";
+import {IUserController} from "./user.interface";
 
 @injectable()
-export class UserController extends BaseController {
+export class UserController extends BaseController implements IUserController {
   constructor(@inject(TYPES.ILoggerService) private loggerService: ILogger) {
     super(loggerService);
 
