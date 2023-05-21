@@ -1,0 +1,24 @@
+{
+  "name": "rest-api-node",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "example of rest api writted on Node.Js with Express and Typescript",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Insid1/rest-node.git"
+  },
+  "author": "Oleg Volobuev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Insid1/rest-node/issues"
+  },
+  "homepage": "https://github.com/Insid1/rest-node#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
