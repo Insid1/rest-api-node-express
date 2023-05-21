@@ -1,0 +1,37 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "project": true
+  },
+  "rules": {
+    "no-empty-function": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "off"
+    ],
+    "@typescript-eslint/explicit-function-return-type": "warn",
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": false,
+        "trailingComma": "all",
+        "useTabs": true,
+        "bracketSpacing": true,
+        "endOfLine": "lf",
+        "semi": true,
+        "printWidth": 90
+      }
+    ]
+  }
+}
