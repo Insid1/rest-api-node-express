@@ -3,27 +3,24 @@ import {Server} from "http"
 import {UserController} from "./user/user.controller";
 import {ExceptionFilter} from "./error/exception.filter";
 import {ILogger} from "./logger/logger.interface";
+import {inject, injectable} from "inversify";
+import "reflect-metadata"
+import {TYPES} from "./types";
 
+@injectable()
 export class App {
   port: number;
   app: Express;
   server: Server;
-  logger: ILogger;
-  userController: UserController;
-  exceptionFilter: ExceptionFilter;
 
   constructor(
+    @inject(TYPES.ILoggerService) private logger: ILogger,
+    @inject(TYPES.UserController) private userController: UserController,
+    @inject(TYPES.ExceptionFilter) private exceptionFilter: ExceptionFilter,
     port = 7070,
-    logger: ILogger,
-    userController: UserController,
-    exceptionFilter: ExceptionFilter
   ) {
     this.app = express();
-    this.logger = logger;
     this.port = port;
-    this.userController = userController;
-    this.exceptionFilter = exceptionFilter;
-
   }
 
   useRoutes() {
