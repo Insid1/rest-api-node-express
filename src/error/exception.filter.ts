@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import { LoggerService } from "../logger/logger.service";
 import { IExceptionFilter } from "./exception.filter.interface";
 import { HttpError } from "./http.error";
@@ -8,7 +8,7 @@ import { TYPES } from "../types";
 
 @injectable()
 export class ExceptionFilter implements IExceptionFilter {
-	constructor(@inject(TYPES.ILoggerService) private logger: LoggerService) {}
+	constructor(@inject(TYPES.LoggerService) private logger: LoggerService) {}
 
 	catch(err: Error | HttpError, req: Request, res: Response, next: NextFunction): void {
 		if (err instanceof HttpError) {

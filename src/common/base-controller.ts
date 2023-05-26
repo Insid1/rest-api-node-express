@@ -33,7 +33,10 @@ export abstract class BaseController {
 		for (const route of routes) {
 			this.logger.log(`[${route.method}] ${route.path}`);
 			const handler = route.func.bind(this); // to keep context
-			this._router[route.method](route.path, handler);
+			const middleware = route.middlewares?.map((m) => m.execute.bind(this)); // to keep context
+			const pipe = middleware ? [...middleware, handler] : [handler];
+			console.log(pipe);
+			this._router[route.method](route.path, pipe);
 		}
 	}
 }
