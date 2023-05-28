@@ -1,12 +1,12 @@
 import { App } from "./app";
 import { LoggerService } from "./logger/logger.service";
-import { UserController } from "./user/controller/user.controller.interface";
+import { UserController } from "./user/controller/user.controller";
 import { ExceptionFilter } from "./error/exception.filter";
 import { Container, ContainerModule, interfaces } from "inversify";
 import { ILogger } from "./logger/logger.interface";
 import { IExceptionFilter } from "./error/exception.filter.interface";
 import { TYPES } from "./types";
-import { IUserController } from "./user/controller/user.interface";
+import { IUserController } from "./user/controller/user.controller.interface";
 import { IUserService } from "./user/service/user.service.interface";
 import { UserService } from "./user/service/user.service";
 import { IConfigService } from "./config/config.service.interface";
