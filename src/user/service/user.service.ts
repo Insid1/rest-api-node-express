@@ -31,6 +31,7 @@ export class UserService implements IUserService {
 	async validateUser(dto: UserLoginDto): Promise<UserModel | null> {
 		const userModel = await this.userRepository.find(dto.email);
 		const salt = this.configService.get("SALT");
+		const JWTSecret = this.configService.get("JWT_SECRET");
 
 		if (!userModel) return null;
 
