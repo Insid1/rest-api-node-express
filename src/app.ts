@@ -5,7 +5,7 @@ import { inject, injectable } from "inversify";
 import { json } from "body-parser";
 import "reflect-metadata";
 import { TYPES } from "./types";
-import { IUserController } from "./user/user.interface";
+import { IUserController } from "./user/controller/user.interface";
 import { IExceptionFilter } from "./error/exception.filter.interface";
 import { IConfigService } from "./config/config.service.interface";
 import { PrismaService } from "./db/prisma.service";

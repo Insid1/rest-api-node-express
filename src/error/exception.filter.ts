@@ -15,7 +15,7 @@ export class ExceptionFilter implements IExceptionFilter {
 			this.logger.error(
 				`Ошибка: ${err.statusCode} Сообщение: ${err.message} Контекст: ${err.context}`,
 			);
-			res.status(err.statusCode).json(err.context);
+			res.status(err.statusCode).json({ message: err.message, context: err.context });
 		} else {
 			this.logger.error(err.message);
 			res.status(500).json(err.message);
