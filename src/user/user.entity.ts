@@ -17,7 +17,7 @@ export class User {
 		return this._name;
 	}
 
-	async setPassword(pass: string): Promise<void> {
-		this._password = await hash(pass, 10);
+	async setPassword(pass: string, salt: number): Promise<void> {
+		this._password = await hash(pass, salt);
 	}
 }
