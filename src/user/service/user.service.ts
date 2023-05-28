@@ -42,4 +42,8 @@ export class UserService implements IUserService {
 
 		return userModel;
 	}
+
+	async getUserByEmail(email: string): Promise<UserModel | null> {
+		return this.userRepository.find(email);
+	}
 }

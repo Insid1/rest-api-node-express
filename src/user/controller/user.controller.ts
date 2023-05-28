@@ -12,6 +12,8 @@ import { IUserService } from "../service/user.service.interface";
 import { ValidateMiddleware } from "../../common/validate.middleware";
 import { sign } from "jsonwebtoken";
 import { IConfigService } from "../../config/config.service.interface";
+import { AuthGuard } from "../../common/auth.guard";
+import IJWTUser = Express.IJWTUser;
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -42,16 +44,23 @@ export class UserController extends BaseController implements IUserController {
 				method: "get",
 				// eslint-disable-next-line @typescript-eslint/unbound-method
 				func: this.info,
+				middlewares: [new AuthGuard()],
 			},
 		]);
 	}
 
 	async info(req: Request, res: Response, next: NextFunction): Promise<void> {
-		if (req.user) {
-			this.send(res, 200, { email: req.user });
-		} else {
-			res.sendStatus(400);
+		const user = req.user as IJWTUser;
+
+		const userModel = await this.userService.getUserByEmail(user.email);
+		if (!userModel) {
+			res.sendStatus(404);
+			return;
 		}
+
+		const { email, name, id } = userModel;
+
+		this.send(res, 200, { id, email, name });
 	}
 
 	async login(
