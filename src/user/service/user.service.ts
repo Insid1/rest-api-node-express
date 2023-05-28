@@ -28,7 +28,17 @@ export class UserService implements IUserService {
 		return this.userRepository.create(user);
 	}
 
-	async validateUser(dto: UserLoginDto): Promise<boolean> {
-		return false;
+	async validateUser(dto: UserLoginDto): Promise<UserModel | null> {
+		const userModel = await this.userRepository.find(dto.email);
+		const salt = this.configService.get("SALT");
+
+		if (!userModel) return null;
+
+		const user = new User(userModel.email, userModel.name, userModel.password);
+		const isPasswordCorrect = await user.checkPassword(dto.password);
+
+		if (!isPasswordCorrect) return null;
+
+		return userModel;
 	}
 }

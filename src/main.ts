@@ -1,6 +1,6 @@
 import { App } from "./app";
 import { LoggerService } from "./logger/logger.service";
-import { UserControllerInterface } from "./user/controller/user.controller.interface";
+import { UserController } from "./user/controller/user.controller.interface";
 import { ExceptionFilter } from "./error/exception.filter";
 import { Container, ContainerModule, interfaces } from "inversify";
 import { ILogger } from "./logger/logger.interface";
@@ -18,9 +18,7 @@ import { UserRepository } from "./user/repository/user.repository";
 const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<ILogger>(TYPES.LoggerService).to(LoggerService).inSingletonScope();
 	bind<IExceptionFilter>(TYPES.ExceptionFilter).to(ExceptionFilter).inSingletonScope();
-	bind<IUserController>(TYPES.UserController)
-		.to(UserControllerInterface)
-		.inSingletonScope();
+	bind<IUserController>(TYPES.UserController).to(UserController).inSingletonScope();
 	bind<IUserService>(TYPES.UserService).to(UserService).inSingletonScope();
 	bind<IConfigService>(TYPES.ConfigService).to(ConfigService).inSingletonScope();
 	bind<PrismaService>(TYPES.PrismaService).to(PrismaService).inSingletonScope();

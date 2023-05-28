@@ -12,7 +12,7 @@ import { IUserService } from "../service/user.service.interface";
 import { ValidateMiddleware } from "../../common/validate.middleware";
 
 @injectable()
-export class UserControllerInterface extends BaseController implements IUserController {
+export class UserController extends BaseController implements IUserController {
 	constructor(
 		@inject(TYPES.LoggerService) private loggerService: ILogger,
 		@inject(TYPES.UserService) private userService: IUserService,
@@ -23,12 +23,14 @@ export class UserControllerInterface extends BaseController implements IUserCont
 			{
 				path: "/login",
 				method: "post",
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				func: this.login,
 				middlewares: [new ValidateMiddleware(UserLoginDto)],
 			},
 			{
 				path: "/register",
 				method: "post",
+				// eslint-disable-next-line @typescript-eslint/unbound-method
 				func: this.register,
 				middlewares: [new ValidateMiddleware(UserRegisterDto)],
 			},
@@ -36,13 +38,15 @@ export class UserControllerInterface extends BaseController implements IUserCont
 	}
 
 	async login(
-		req: Request<{}, {}, UserLoginDto>,
+		{ body }: Request<{}, {}, UserLoginDto>,
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
-		console.log(req.body);
-		throw new HttpError(401, "not authorized");
-		// this.ok(res, "login!")
+		const isValid = await this.userService.validateUser(body);
+		if (!isValid) {
+			return next(new HttpError(400, "invalid data provided"));
+		}
+		this.ok(res, "logged in!");
 	}
 
 	async register(
