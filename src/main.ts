@@ -31,16 +31,15 @@ interface IMainReturn {
 	appContainer: Container;
 }
 
-function main(): IMainReturn {
+async function main(): Promise<IMainReturn> {
 	const appContainer = new Container();
 	appContainer.load(appBindings);
 
 	const app = appContainer.get<App>(TYPES.Application);
-	void app.init();
+	await app.init();
 
 	return { app, appContainer };
 }
 
-const { app, appContainer } = main();
-
-export { app, appContainer };
+const appData = main();
+export { appData };

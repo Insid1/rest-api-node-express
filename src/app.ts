@@ -54,4 +54,8 @@ export class App {
 			`Server started on port ${this.port}. GO to http://localhost:${this.port}`,
 		);
 	}
+
+	public close(): void {
+		this.server.close();
+	}
 }
